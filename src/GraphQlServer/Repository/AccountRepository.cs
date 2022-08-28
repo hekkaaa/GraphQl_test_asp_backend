@@ -1,10 +1,9 @@
 ﻿using GraphQlServer.Context;
-using GraphQlServer.Repository.Entities;
-using GraphQlServer.Repository.Interfaces;
+
 
 namespace GraphQlServer.Repository
 {
-    public class AccountRepository : IAccountRepository
+    public class AccountRepository 
     {
         private readonly ApplicationContext _context;
         public AccountRepository(ApplicationContext context)
@@ -12,16 +11,11 @@ namespace GraphQlServer.Repository
             _context = context;
         }
 
-        public List<Account> GetAccount()
-        {
-            return _context.Accounts.ToList();
-        }
 
-        public bool AddNewAccount(Account newAccount)
+        public bool AddNewAccount()
         {
-            var res = _context.Accounts.Add(newAccount);
             _context.SaveChanges();
-            var q = newAccount.Id;
+            
             return true;
         }
     }

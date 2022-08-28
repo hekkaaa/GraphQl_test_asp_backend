@@ -5,7 +5,9 @@ namespace GraphQlServer.Context
 {
     public class ApplicationContext : DbContext
     {
-        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Bond> Bonds { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<Director> Directors { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
         : base(options)
