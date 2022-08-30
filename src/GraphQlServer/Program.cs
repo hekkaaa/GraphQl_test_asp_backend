@@ -15,7 +15,8 @@ builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services
     .AddGraphQLServer()
     .RegisterDbContext<ApplicationContext>()
-    .AddQueryType<Query>();
+    .AddQueryType<Query>()
+    .AddMutationType<Mutations>();
 
 var app = builder.Build();
 

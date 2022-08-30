@@ -12,12 +12,12 @@ namespace GraphQlServer.Repository
             _context = context;
         }
 
-
-        public bool AddNewAccount(Account newAccount)
-        {
+        public int AddNewAccount(Account newAccount)
+        {   
+            _context.Accounts.Add(newAccount);
             _context.SaveChanges();
-
-            return true;
+            
+            return newAccount.Id;
         }
 
         public List<Account> GetAllAccount()

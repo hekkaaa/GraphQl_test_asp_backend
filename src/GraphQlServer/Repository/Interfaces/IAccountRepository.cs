@@ -4,7 +4,7 @@ namespace GraphQlServer.Repository.Interfaces
 {
     public interface IAccountRepository
     {
-        bool AddNewAccount(Account newAccount);
+        int AddNewAccount(Account newAccount);
         List<Account> GetAllAccount();
         Account GetAccountById(int id);
     }
