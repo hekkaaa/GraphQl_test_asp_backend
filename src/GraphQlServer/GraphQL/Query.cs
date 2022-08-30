@@ -1,33 +1,21 @@
-﻿using GraphQlServer.Context;
-using GraphQlServer.Repository.Entities;
+﻿using GraphQlServer.Repository.Entities;
+using GraphQlServer.Repository.Interfaces;
 
 namespace GraphQlServer.GraphQL
 {
     public class Query
     {
-        /// <summary>
-        /// Get Bonds
-        /// </summary>
-        public IQueryable<Bond> GetBonds([ScopedService] ApplicationContext context)
+        [GraphQLDescription("Get all account")]
+        public List<Account> GetAcccount([Service(ServiceKind.Synchronized)] IAccountRepository repository)
         {
-           return context.Bonds;
+
+            return repository.GetAllAccount();
         }
 
-        /// <summary>
-        /// Get Movie
-        /// </summary>
-        public IQueryable<Movie> GetMovie([ScopedService] ApplicationContext context)
+        [GraphQLDescription("Get account id")]
+        public Account GetAcccountId([Service(ServiceKind.Synchronized)] IAccountRepository repository, int id)
         {
-            return context.Movies;
+            return repository.GetAccountById(id);
         }
-
-        /// <summary>
-        /// Get Director
-        /// </summary>
-        public IQueryable<Director> GetBDirector([ScopedService] ApplicationContext context)
-        {
-            return context.Directors;
-        }
-
     }
 }

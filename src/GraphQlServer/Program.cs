@@ -1,36 +1,24 @@
 using GraphQlServer.Context;
 using GraphQlServer.GraphQL;
 using GraphQlServer.Repository;
+using GraphQlServer.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-//builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-//builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
 //builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql());
 builder.Services.AddDbContext<ApplicationContext>();
+//builder.Services.AddPooledDbContextFactory<ApplicationContext>(options => options.UseNpgsql());
 
-//builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-//builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 
-builder.Services.AddGraphQLServer().AddQueryType<Query>();
+builder.Services
+    .AddGraphQLServer()
+    .RegisterDbContext<ApplicationContext>()
+    .AddQueryType<Query>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
-
-//app.UseHttpsRedirection();
-
-//app.UseAuthorization();
-
-//app.MapControllers();
 app.MapGraphQL("/api");
 
 app.Run();
