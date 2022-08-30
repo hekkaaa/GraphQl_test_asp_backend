@@ -1,4 +1,4 @@
-﻿using GraphQlServer.Repository.Entities;
+﻿using GraphQlServer.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace GraphQlServer.Context

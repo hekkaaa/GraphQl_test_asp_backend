@@ -1,21 +1,17 @@
-﻿using GraphQlServer.Repository.Entities;
-using GraphQlServer.Repository.Interfaces;
+﻿using GraphQlServer.Context;
+using GraphQlServer.Model;
 
 namespace GraphQlServer.GraphQL
 {
     public class Query
     {
         [GraphQLDescription("Get all account")]
-        public List<Account> GetAcccount([Service(ServiceKind.Synchronized)] IAccountRepository repository)
+        [UseProjection]
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<Account> GetAcccount([Service(ServiceKind.Synchronized)] ApplicationContext context)
         {
-
-            return repository.GetAllAccount();
-        }
-
-        [GraphQLDescription("Get account id")]
-        public Account GetAcccountId([Service(ServiceKind.Synchronized)] IAccountRepository repository, int id)
-        {
-            return repository.GetAccountById(id);
+            return context.Accounts.AsQueryable();
         }
     }
 }

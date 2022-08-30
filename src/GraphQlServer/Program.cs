@@ -1,8 +1,5 @@
 using GraphQlServer.Context;
 using GraphQlServer.GraphQL;
-using GraphQlServer.Repository;
-using GraphQlServer.Repository.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,13 +7,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationContext>();
 //builder.Services.AddPooledDbContextFactory<ApplicationContext>(options => options.UseNpgsql());
 
-builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-
 builder.Services
     .AddGraphQLServer()
     .RegisterDbContext<ApplicationContext>()
     .AddQueryType<Query>()
-    .AddMutationType<Mutations>();
+    .AddMutationType<Mutations>()
+    .AddProjections()
+    .AddFiltering()
+    .AddSorting();
+    
 
 var app = builder.Build();
 

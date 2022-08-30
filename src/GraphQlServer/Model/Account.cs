@@ -1,4 +1,4 @@
-﻿namespace GraphQlServer.Repository.Entities
+﻿namespace GraphQlServer.Model
 {
     public class Account
     {

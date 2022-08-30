@@ -1,17 +1,16 @@
 ﻿using GraphQlServer.Context;
-using GraphQlServer.Repository.Entities;
-using GraphQlServer.Repository.Interfaces;
+using GraphQlServer.Model;
 
 namespace GraphQlServer.GraphQL
 {
     public class Mutations
     {
         [GraphQLDescription("Add new Account")]
-        public async Task<Account> CreateNewAccount([Service(ServiceKind.Synchronized)] IAccountRepository repository, Account newAccount)
-        {
-            int res = repository.AddNewAccount(newAccount);
-
-            return new Account() { Id = res };
+        public async Task<bool> AddAccount([Service(ServiceKind.Synchronized)] ApplicationContext context, Account account)
+        {   
+            context.Accounts.Add(account);
+            context.SaveChanges();
+            return true;
         }
     }
 }
