@@ -15,10 +15,12 @@ builder.Services
     .AddProjections()
     .AddFiltering()
     .AddSorting();
-    
+
 
 var app = builder.Build();
 
 app.MapGraphQL("/api");
+
+app.UseWebSockets();
 
 app.Run();

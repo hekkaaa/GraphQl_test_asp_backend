@@ -6,11 +6,13 @@ namespace GraphQlServer.Context
     public class ApplicationContext : DbContext
     {
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<TaskList> TaskLists { get; set; }
+        public DbSet<SubTask> SubTasks { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
         : base(options)
         {
-
+            
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
